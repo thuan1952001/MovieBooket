@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form, message } from 'antd'
 import { Link } from 'react-router-dom'
 import Button from '../../components/button'
 import { RegisterUser } from '../../apicalls/users';
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { ShowLoading, HideLoading } from '../../redux/loadersSlice'
 
 
 function Register() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const onFinish = async (values) => {
     try {
+      dispatch(ShowLoading())
       const response = await RegisterUser(values)
+      dispatch(HideLoading())
       if (response.success) {
         message.success(response.message)
       } else {
@@ -16,11 +23,18 @@ function Register() {
 
       }
     } catch (error) {
+      dispatch(HideLoading())
+      message.error(error.message);
     }
 
 
   };
 
+    useEffect(() => {
+      if (localStorage.getItem('token')) {
+        navigate('/');
+      }
+    }, []);
 
   return (
     <div className="flex justify-center h-screen items-center bg-primary">
