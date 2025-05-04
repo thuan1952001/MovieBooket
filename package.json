@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cd server && cd../client && npm install && npm run build",
+    "start": "node server/server.js",
+    "test": "echo \"error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +16,10 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2",
+    "react-stripe-checkout": "^2.6.3",
+    "stripe": "^18.1.0"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.9"
   }
 }
